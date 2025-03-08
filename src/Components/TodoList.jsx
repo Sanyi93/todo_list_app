@@ -20,6 +20,27 @@ const TodoList = () => {
             setHeadingInput('');
         }
     }
+
+    const handleAddList = (index) => {
+        if(listInputs[index] && listInputs[index].trim() !== ''){
+            const newTodos = [...todos];
+
+            //Accesses the todo item at the specified index in the newTodos array and pushes the value of listInputs[index] into its lists array.
+            //This push assumes that each todo item has a lists property, an array containing the items within that todo.
+            newTodos[index].lists.push(listInputs[index]);
+            setTodos = newTodos;
+            //setListInput resetting "listInput" state variable, clearing the text input field for addin new list items
+            setListInputs({...listInputs, [index]: value });
+        }
+    };
+
+
+    //index of todo Item and its new input value
+    //the function updates the listInput state object with the new value for the input at the specified index,
+    //thus ensuring that each todo item´s list is tracked individually
+    const handleListInputChange = (index, value) => {
+        setListInputs({...listInputs, [index]: value});
+    }
   
   return (
     <>
@@ -46,10 +67,22 @@ const TodoList = () => {
                     <h3>{todo.heading}</h3> {/* Display the heading here */}
                     <button className="delete-button-heading" onClick={() => handleDeleteTodo(index)}>Delete Heading </button>
                 </div>
+                <div className="add_list">
+                    <input 
+                       type="text"
+                       className="list-input"
+                       placeholder="Add List"
+                       value={listInputs[index] || ''}
+                       onChange={(e) => {handleListInputChange(index, e.target.value);}} />
+                    <button className="add-list-button" onClick={() => handleAddList}>Add List</button>
+
+                </div>
+
+                
             </div>
   ))}
       </div>
-      
+
     </>
   );
 };
