@@ -40,18 +40,16 @@ const TodoList = () => {
         </div>
       </div>
       <div className="todo_main">
-        //iterating over the "todo" list of objects in order to display the respective todo.headings
-        {todos.map((todo, index) => {
+        {todos.map((todo, index) => (
             <div key={index} className="todo-card">
                 <div className="heading_todo">
-                    <h3>{todo.heading}</h3> //displaying the heading of a "todo" object
-                    <button className="delet-button-heading" onClick={handleDeleteTodo(index)}>Delete Heading</button>
+                    <h3>{todo.heading}</h3> {/* Display the heading here */}
+                    <button className="delete-button-heading" onClick={() => handleDeleteTodo(index)}>Delete Heading </button>
                 </div>
             </div>
-        })}
-        
-        
+  ))}
       </div>
+      
     </>
   );
 };
