@@ -19,7 +19,7 @@ const TodoList = () => {
             //resetting the text input field for the user to enter a new todo item heading.
             setHeadingInput('');
         }
-    }
+    };
 
     const handleAddList = (index) => {
         if(listInputs[index] && listInputs[index].trim() !== ''){
@@ -28,7 +28,7 @@ const TodoList = () => {
             //Accesses the todo item at the specified index in the newTodos array and pushes the value of listInputs[index] into its lists array.
             //This push assumes that each todo item has a lists property, an array containing the items within that todo.
             newTodos[index].lists.push(listInputs[index]);
-            setTodos = newTodos;
+            setTodos(newTodos);
             //setListInput resetting "listInput" state variable, clearing the text input field for addin new list items
             setListInputs({...listInputs, [index]: value });
         }
@@ -41,6 +41,14 @@ const TodoList = () => {
     const handleListInputChange = (index, value) => {
         setListInputs({...listInputs, [index]: value});
     }
+
+    //updating the Todos after one todo delition
+    const handleDeleteTodo = (index) => {
+        const newTodos = [...todos];
+        newTodos.splice(index, 1);
+        setTodos(newTodos);
+    }
+
   
   return (
     <>
@@ -52,7 +60,7 @@ const TodoList = () => {
             className="heading-input"
             placeholder="Enter heading"
             value = {headingInput} //binding the value of the input field to the "headingInput" state variable
-            onChange={(e) => {setHeadingInput(e.target.value);}} //adding change event handler to update headingInput state -> taking event "e" as an argument
+            onChange={(e) => setHeadingInput(e.target.value)} //adding change event handler to update headingInput state -> taking event "e" as an argument
                                                                 //"e.target.value" retrieves the current value of the input element that triggered the event
                                                                 //whereas "setHeadingInput" is called to trigered the headingInput state
             
@@ -80,8 +88,9 @@ const TodoList = () => {
                        className="list-input"
                        placeholder="Add List"
                        value={listInputs[index] || ''}
-                       onChange={(e) => {handleListInputChange(index, e.target.value);}} />
-                    <button className="add-list-button" onClick={() => handleAddList}>Add List</button>
+                       onChange={(e) => handleListInputChange(index, e.target.value)} 
+                       />
+                    <button className="add-list-button" onClick={() => handleAddList(index)}>Add List</button>
 
                 </div>
 
