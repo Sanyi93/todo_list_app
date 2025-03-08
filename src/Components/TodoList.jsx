@@ -67,6 +67,13 @@ const TodoList = () => {
                     <h3>{todo.heading}</h3> {/* Display the heading here */}
                     <button className="delete-button-heading" onClick={() => handleDeleteTodo(index)}>Delete Heading </button>
                 </div>
+                <ul>
+                    {todo.lists.map((list, listIndex) => (
+                        <li key={listIndex} className="todo_inside_list">
+                            <p>{list}</p>
+                        </li>
+                    ))}
+                </ul>
                 <div className="add_list">
                     <input 
                        type="text"
